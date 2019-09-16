@@ -1,5 +1,5 @@
-import { Test } from './test'
+import { MyClass } from './my_class';
 
-let foo = new Test("FOO!")
+let foo = new MyClass("FOO!");
 
-console.log(foo.say())
+console.log("Running the main app. MyClass says '${foo.say()}'");

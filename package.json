@@ -6,13 +6,18 @@
   "scripts": {
     "test": "jest"
   },
+  "jest": {
+      "testEnvironment": "node"
+  },
   "author": "",
   "license": "MIT",
   "repository": {},
   "devDependencies": {
     "@babel/core": "^7.6.0",
+    "@babel/node": "^7.6.1",
     "@babel/preset-env": "^7.6.0",
-    "@babel/node": "^7.6.1"
+    "babel-jest": "^24.9.0",
+    "jest-cli": "^24.9.0"
   },
   "dependencies": {}
 }
