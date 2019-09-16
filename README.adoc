@@ -1,0 +1,75 @@
+= Debugging ES6 and Jest with VSCode and Babel
+
+Most of this comes from a comment on https://stackoverflow.com/a/50729890/1629168[Stack Overflow].
+
+== Install babel and its parts
+
+[source,bash]
+----
+npm install --save-dev @babel/core
+npm install --save-dev @babel/preset-env
+npm install --save-dev @babel/node <1>
+----
+<1> `@babel/node` should be installed after the other two, per the Babel documentation.
+
+== Set up the Babel configuration
+
+Update the `.babelrc` configuration to handle source maps.
+
+[source,json]
+----
+{
+  "presets": [ "@babel/preset-env" ],
+  "sourceMaps": "inline",
+  "retainLines": true
+}
+----
+
+or keep source maps to development only:
+
+[source,json]
+----
+{
+  "presets": [ "@babel/preset-env" ],
+  "env": {
+    "debug": {
+      "sourceMaps": "inline",
+      "retainLines": true
+    }
+  }
+}
+----
+
+== Set up the Launch configuration for debugging
+
+The `launch.json` configuration should have an entry like:
+
+[source,json]
+----
+{
+  "type": "node",
+  "request": "launch",
+  "name": "Debug with babel-node",
+  "program": "${workspaceFolder}/index.js",
+  "runtimeExecutable": "npx",
+  "runtimeArgs": [ "babel-node" ]
+}
+----
+
+or if using development-only source maps:
+
+[source,json]
+----
+{
+  "type": "node",
+  "request": "launch",
+  "name": "Debug with babel-node",
+  "program": "${workspaceFolder}/index.js",
+  "runtimeExecutable": "npx",
+  "runtimeArgs": [ "babel-node" ]
+  "env": {
+    "BABEL_ENV": "debug"
+  }
+}
+----
+
